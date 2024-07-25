@@ -1,4 +1,4 @@
-name: Node.js CI/CD
+name: Commercify Deployment
 
 on:
   push:
@@ -50,3 +50,7 @@ jobs:
         run: |
           docker build -t $REGISTRY/$REPOSITORY:$IMAGE_TAG -t $REGISTRY/$REPOSITORY:latest .
           docker push -a $REGISTRY/$REPOSITORY
+
+      - name: Deploy to ECS
+        run: |
+          aws ecs update-service --cluster commercify-cluster --service commercify --force-new-deployment
