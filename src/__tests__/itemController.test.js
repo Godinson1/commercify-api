@@ -13,6 +13,10 @@ afterAll(async () => {
 });
 
 describe("Item API", () => {
+  beforeEach(async () => {
+    await AppDataSource.getRepository(Item).clear();
+  });
+
   it("should create a new item", async () => {
     const newItem = {
       name: "Test Item",
